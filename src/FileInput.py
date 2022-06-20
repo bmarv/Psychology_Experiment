@@ -12,6 +12,7 @@ def filter_participants_for_complete_data(
     faces_available = True,
     words_available = True
 ):
+    df = df[~df['VP_NR:1'].isnull()]
     if faces_available:
         df = df[~df['start_exp1:1'].isnull()]
     if words_available:
@@ -23,6 +24,7 @@ def get_participant_information_list(df, filetype = 'encoding'):
     for index, row in df.iterrows():
         info_obj = {
                 'identifier': row['participant'],
+                'vp_nr': row['VP_NR:1'],
                 str('file_'+filetype+'_faces'): row['start_exp1:1'],
                 str('file_'+filetype+'_words'): row['start_exp2:1']
         }

@@ -14,7 +14,7 @@ def ask_directory():
 def get_directory_content():
     folder_path = ask_directory()
     return os.listdir(folder_path)
-
+ 
 def get_participants_experiment_path_list(basepath, filetype = 'encoding'):
     experiment_folder = os.path.join(
         basepath,
@@ -38,6 +38,7 @@ def get_participants_experiment_path_list(basepath, filetype = 'encoding'):
     for participant in encoding_file_names_list:
         info_obj = {
             'identifier': participant['identifier'],
+            'vp_nr': participant['vp_nr'],
             str('path_'+filetype+'_faces'): os.path.join(
                 experiment_folder,
                 participant[str('file_'+filetype+'_faces')]
