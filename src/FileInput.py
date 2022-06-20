@@ -30,3 +30,21 @@ def get_participant_information_list(df, filetype = 'encoding'):
         }
         participant_information_list.append(info_obj)
     return participant_information_list
+
+def read_encoding_data_txt_into_df(path):
+    df = pd.read_csv(
+        filepath_or_buffer = path, 
+        sep = ' ', 
+        header = None, 
+        names=['order', 'task', 'tablerow', 'img_column', 'RT', 'valence']
+    )
+    return df
+
+def read_memory_data_txt_into_df(path):
+    df = pd.read_csv(
+        filepath_or_buffer = path, 
+        sep = ' ', 
+        header = None, 
+        names=['order', 'orderrec', 'task', 'tablerow', 'RT', 'yes_or_no', 'confidence']
+    )
+    return df
