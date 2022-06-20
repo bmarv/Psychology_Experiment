@@ -65,11 +65,23 @@ def read_data_for_participant(path_list, filetype ='encoding'):
             data_obj = {
                 'identifier': participant['identifier'],
                 'vp_nr': participant['vp_nr'],
-                'df_faces': FileInput.read_memory_data_txt_into_df(participant['path_encoding_faces']),
-                'df_words': FileInput.read_memory_data_txt_into_df(participant['path_encoding_words'])
+                'df_faces': FileInput.read_memory_data_txt_into_df(participant['path_memory_faces']),
+                'df_words': FileInput.read_memory_data_txt_into_df(participant['path_memory_words'])
             }
         else:
             data_obj = {}
             print('filetype not supported')
         data_list.append(data_obj)
     return data_list
+
+def encoding_workflow():
+    basepath = ask_directory()
+    encoding_path_list = get_participants_experiment_path_list(basepath, 'encoding')
+    encoding_data_list = read_data_for_participant(encoding_path_list, 'encoding')
+    return encoding_data_list
+
+def memory_workflow():
+    basepath = ask_directory()
+    memory_path_list = get_participants_experiment_path_list(basepath, 'memory')
+    memory_data_list = read_data_for_participant(memory_path_list, 'memory')
+    return memory_data_list
