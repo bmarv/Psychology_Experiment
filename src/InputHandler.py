@@ -23,9 +23,9 @@ def get_participants_experiment_path_list(basepath, filetype = 'encoding'):
         )
         encoding_info_file = os.path.join(
             basepath,
-            'data.csv'
+            'data.xlsx'
         )
-        encoding_info_df = FileInput.read_csv_file_content_into_pd_dataframe(encoding_info_file)
+        encoding_info_df = FileInput.read_excel_file_content_into_pd_dataframe(encoding_info_file)
         encoding_info_df = FileInput.filter_participants_for_complete_data(
             df = encoding_info_df, 
             faces_encoding_available = True, 

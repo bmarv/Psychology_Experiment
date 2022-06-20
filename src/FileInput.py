@@ -1,7 +1,10 @@
 import pandas as pd
 
-def read_csv_file_content_into_pd_dataframe(path):
-    file_content_df = pd.read_csv(path, header=0, index_col=False)
+def read_excel_file_content_into_pd_dataframe(path):
+    file_content_df = pd.read_excel(
+        io=path, 
+        header=0,
+    )
     return file_content_df
 
 def filter_participants_for_complete_data(
