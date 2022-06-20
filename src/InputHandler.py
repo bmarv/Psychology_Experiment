@@ -16,39 +16,36 @@ def get_directory_content():
     return os.listdir(folder_path)
 
 def get_participants_experiment_path_list(basepath, filetype = 'encoding'):
-    if filetype == 'encoding': 
-        encoding_folder = os.path.join(
-            basepath,
-            'experiment_data'
-        )
-        encoding_info_file = os.path.join(
-            basepath,
-            'data.xlsx'
-        )
-        encoding_info_df = FileInput.read_excel_file_content_into_pd_dataframe(encoding_info_file)
-        encoding_info_df = FileInput.filter_participants_for_complete_data(
-            df = encoding_info_df, 
-            faces_encoding_available = True, 
-            words_encoding_available = True
-        )
-        encoding_file_names_list = FileInput.get_participant_information_list(
-            df = encoding_info_df,
-            filetype = filetype
-        )
-        encoding_path_list = []
-        for participant in encoding_file_names_list:
-            info_obj = {
-                'identifier': participant['identifier'],
-                'path_encoding_faces': os.path.join(
-                    encoding_folder,
-                    participant['file_encoding_faces']
-                ),
-                'path_encoding_words': os.path.join(
-                    encoding_folder,
-                    participant['file_encoding_words']
-                )
-            }
-            encoding_path_list.append(info_obj)
-        return encoding_path_list
-    else:
-        return -1
+    experiment_folder = os.path.join(
+        basepath,
+        'experiment_data'
+    )
+    experiment_info_file = os.path.join(
+        basepath,
+        'data.xlsx'
+    )
+    info_df = FileInput.read_excel_file_content_into_pd_dataframe(experiment_info_file)
+    info_df = FileInput.filter_participants_for_complete_data(
+        df = info_df, 
+        faces_available = True, 
+        words_available = True
+    )
+    encoding_file_names_list = FileInput.get_participant_information_list(
+        df = info_df,
+        filetype = filetype
+    )
+    path_list = []
+    for participant in encoding_file_names_list:
+        info_obj = {
+            'identifier': participant['identifier'],
+            str('path_'+filetype+'_faces'): os.path.join(
+                experiment_folder,
+                participant[str('file_'+filetype+'_faces')]
+            ),
+            str('path_'+filetype+'_words'): os.path.join(
+                experiment_folder,
+                participant[str('file_'+filetype+'_words')]
+            )
+        }
+        path_list.append(info_obj)
+    return path_list

@@ -9,12 +9,12 @@ def read_excel_file_content_into_pd_dataframe(path):
 
 def filter_participants_for_complete_data(
     df,
-    faces_encoding_available = True,
-    words_encoding_available = True
+    faces_available = True,
+    words_available = True
 ):
-    if faces_encoding_available:
+    if faces_available:
         df = df[~df['start_exp1:1'].isnull()]
-    if words_encoding_available:
+    if words_available:
         df = df[~df['start_exp2:1'].isnull()]
     return df
 
