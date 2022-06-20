@@ -51,14 +51,25 @@ def get_participants_experiment_path_list(basepath, filetype = 'encoding'):
         path_list.append(info_obj)
     return path_list
 
-def read_encoding_data_for_participant(encoding_path_list):
-    encoding_data_list = []
-    for participant in encoding_path_list:
-        encoding_obj = {
-            'identifier': participant['identifier'],
-            'vp_nr': participant['vp_nr'],
-            'df_faces': FileInput.read_encoding_data_txt_into_df(participant['path_encoding_faces']),
-            'df_words': FileInput.read_encoding_data_txt_into_df(participant['path_encoding_words'])
-        }
-        encoding_data_list.append(encoding_obj)
-    return encoding_data_list
+def read_data_for_participant(path_list, filetype ='encoding'):
+    data_list = []
+    for participant in path_list:
+        if filetype == 'encoding':
+            data_obj = {
+                'identifier': participant['identifier'],
+                'vp_nr': participant['vp_nr'],
+                'df_faces': FileInput.read_encoding_data_txt_into_df(participant['path_encoding_faces']),
+                'df_words': FileInput.read_encoding_data_txt_into_df(participant['path_encoding_words'])
+            }
+        elif filetype == 'memory':
+            data_obj = {
+                'identifier': participant['identifier'],
+                'vp_nr': participant['vp_nr'],
+                'df_faces': FileInput.read_memory_data_txt_into_df(participant['path_encoding_faces']),
+                'df_words': FileInput.read_memory_data_txt_into_df(participant['path_encoding_words'])
+            }
+        else:
+            data_obj = {}
+            print('filetype not supported')
+        data_list.append(data_obj)
+    return data_list
