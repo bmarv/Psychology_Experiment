@@ -74,6 +74,66 @@ def read_data_for_participant(path_list, filetype ='encoding'):
         data_list.append(data_obj)
     return data_list
 
+def read_stimulus_lists(basepath):
+    faces_directory = os.path.join(
+        basepath,
+        'Faces'
+    )
+    words_directory = os.path.join(
+        basepath,
+        'Words'
+    )
+    encoding_filename = 'img_encoding.txt'
+    recognition_a_filename = 'img_recognition_A.txt'
+    recognition_b_filename = 'img_recognition_B.txt'
+
+    df_encoding_faces_a, df_encoding_faces_b = FileInput.read_stimulus_encoding_txt_into_dfs(
+        path= os.path.join(
+            faces_directory,
+            encoding_filename
+        )
+    )
+    df_encoding_words_a, df_encoding_words_b = FileInput.read_stimulus_encoding_txt_into_dfs(
+        path= os.path.join(
+            words_directory,
+            encoding_filename
+        )
+    )
+    df_recognition_faces_a = FileInput.read_stimulus_recognition_txt_into_df(
+        path= os.path.join(
+            faces_directory,
+            recognition_a_filename
+        )
+    )
+    df_recognition_faces_b = FileInput.read_stimulus_recognition_txt_into_df(
+        path= os.path.join(
+            faces_directory,
+            recognition_b_filename
+        )
+    )
+    df_recognition_words_a = FileInput.read_stimulus_recognition_txt_into_df(
+        path= os.path.join(
+            words_directory,
+            recognition_a_filename
+        )
+    )
+    df_recognition_words_b = FileInput.read_stimulus_recognition_txt_into_df(
+        path= os.path.join(
+            words_directory,
+            recognition_b_filename
+        )
+    )
+    return {
+        'df_encoding_faces_a': df_encoding_faces_a,
+        'df_encoding_faces_b': df_encoding_faces_b,
+        'df_encoding_words_a': df_encoding_words_a,
+        'df_encoding_words_b': df_encoding_words_b,
+        'df_recognition_faces_a': df_recognition_faces_a,
+        'df_recognition_faces_b': df_recognition_faces_b,
+        'df_recognition_words_a': df_recognition_words_a,
+        'df_recognition_words_b': df_recognition_words_b,
+    }
+
 def encoding_workflow():
     basepath = ask_directory()
     encoding_path_list = get_participants_experiment_path_list(basepath, 'encoding')
@@ -85,3 +145,8 @@ def memory_workflow():
     memory_path_list = get_participants_experiment_path_list(basepath, 'memory')
     memory_data_list = read_data_for_participant(memory_path_list, 'memory')
     return memory_data_list
+
+def stimulus_lists_workflow():
+    basepath = ask_directory()
+    stimulus_object = read_stimulus_lists(basepath)
+    return stimulus_object
