@@ -48,3 +48,42 @@ def read_memory_data_txt_into_df(path):
         names=['order', 'orderrec', 'task', 'tablerow', 'RT', 'yes_or_no', 'confidence']
     )
     return df
+
+def read_stimulus_encoding_txt_into_dfs(path):
+    df = pd.read_csv(
+        filepath_or_buffer = path, 
+        engine = 'python',
+        sep = r'\t\s*', 
+        header = None, 
+    )
+    df_a = df.iloc[:, 0:2]
+    df_b = df.iloc[:, 2:4]
+    df_a = df_a.rename(
+        columns={
+            0: 'name',
+            1: 'file'
+        }
+    )
+    df_b = df_b.rename(
+        columns={
+            2: 'name',
+            3: 'file'
+        }
+    )
+    return df_a, df_b
+
+def read_stimulus_recognition_txt_into_df(path):
+    df = pd.read_csv(
+        filepath_or_buffer = path, 
+        engine = 'python',
+        sep = r'\t\s*', 
+        header = None, 
+    )
+    df = df.rename(
+        columns={
+            0: 'name',
+            1: 'value1',
+            2: 'value2'
+        }
+    )
+    return df
