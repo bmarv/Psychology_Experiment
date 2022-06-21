@@ -7,6 +7,7 @@ def read_excel_file_content_into_pd_dataframe(path):
     )
     return file_content_df
 
+# TODO: create data without filtering
 def filter_participants_for_complete_data(
     df,
     faces_available = True,

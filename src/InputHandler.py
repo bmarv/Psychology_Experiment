@@ -25,6 +25,7 @@ def get_participants_experiment_path_list(basepath, filetype = 'encoding'):
         'data.xlsx'
     )
     info_df = FileInput.read_excel_file_content_into_pd_dataframe(experiment_info_file)
+    # TODO: use also null-data from non-existent tests
     info_df = FileInput.filter_participants_for_complete_data(
         df = info_df, 
         faces_available = True, 
