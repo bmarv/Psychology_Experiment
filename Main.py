@@ -117,7 +117,15 @@ def run_build_encoding_table_dfs(stimulus_object):
             encoding_words_a = None,
             encoding_words_b = encoding_words_b,
         )
-    return participants_table_dict
+    
+    # build one encoding table for each participant
+    participants_df_list = []
+    for participant in list(participants_table_dict.keys()):
+        table_df_list = list(participants_table_dict[participant].values())
+        participants_df_list.append(TableBuilder.concat_df_tables_from_df_list(table_df_list))
+    # build one encoding table for all participants
+    encoding_df = TableBuilder.concat_df_tables_from_df_list(participants_df_list)
+    return encoding_df
 
 # TODO: build recognition table
 def run_build_recognition_table_dfs(stimulus_object):
