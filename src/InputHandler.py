@@ -40,6 +40,7 @@ def get_participants_experiment_path_list(basepath, filetype = 'encoding'):
         info_obj = {
             'identifier': participant['identifier'],
             'vp_nr': participant['vp_nr'],
+            'stimulation': participant['stimulation'],
             str('path_'+filetype+'_faces'): os.path.join(
                 experiment_folder,
                 participant[str('file_'+filetype+'_faces')]
@@ -59,6 +60,7 @@ def read_data_for_participant(path_list, filetype ='encoding'):
             data_obj = {
                 'identifier': participant['identifier'],
                 'vp_nr': participant['vp_nr'],
+                'stimulation': participant['stimulation'],
                 'df_faces': FileInput.read_encoding_data_txt_into_df(participant['path_encoding_faces']),
                 'df_words': FileInput.read_encoding_data_txt_into_df(participant['path_encoding_words'])
             }
@@ -66,6 +68,7 @@ def read_data_for_participant(path_list, filetype ='encoding'):
             data_obj = {
                 'identifier': participant['identifier'],
                 'vp_nr': participant['vp_nr'],
+                'stimulation': participant['stimulation'],
                 'df_faces': FileInput.read_memory_data_txt_into_df(participant['path_memory_faces']),
                 'df_words': FileInput.read_memory_data_txt_into_df(participant['path_memory_words'])
             }

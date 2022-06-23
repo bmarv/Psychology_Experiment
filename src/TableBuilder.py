@@ -8,7 +8,9 @@ import numpy as np
 def build_encoding_table_for_participant(
     stimulus_object, 
     vp_nr_a = None,
+    stimulus_a = None,
     vp_nr_b = None,
+    stimulus_b = None,
     encoding_faces_a = None, 
     encoding_faces_b = None, 
     encoding_words_a = None, 

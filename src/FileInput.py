@@ -29,6 +29,10 @@ def get_participant_information_list(df, filetype = 'encoding'):
                 str('file_'+filetype+'_faces'): row['start_exp1:1'],
                 str('file_'+filetype+'_words'): row['start_exp2:1']
         }
+        if filetype == 'encoding':
+            info_obj['stimulation'] = row['Stimulation:1']
+        else:
+            info_obj['stimulation'] = 0
         participant_information_list.append(info_obj)
     return participant_information_list
 
