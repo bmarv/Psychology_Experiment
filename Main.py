@@ -21,7 +21,6 @@ def run_build_encoding_table_dfs(stimulus_object):
         encoding_faces_b_obj[el['vp_nr']] = el['df_faces']
         encoding_words_b_obj[el['vp_nr']] = el['df_words']
     
-
     participants_table_dict = {}
     # creating tables for every participant, clustering each participant into one table
     for faces_a in list(encoding_faces_a_obj.keys()):

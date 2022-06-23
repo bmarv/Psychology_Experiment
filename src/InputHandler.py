@@ -43,14 +43,14 @@ def get_participants_experiment_path_list(basepath, filetype = 'encoding'):
         }
         if str(participant[str('file_'+filetype+'_faces')]) == 'nan':
             info_obj[str('path_'+filetype+'_faces')] = 'nan'
-        elif str(participant[str('file_'+filetype+'_faces')]) is not 'nan':
+        elif str(participant[str('file_'+filetype+'_faces')]) != 'nan':
             info_obj[str('path_'+filetype+'_faces')] = os.path.join(
                 experiment_folder,
                 participant[str('file_'+filetype+'_faces')]
             )
         if str(participant[str('file_'+filetype+'_words')]) == 'nan':
             info_obj[str('path_'+filetype+'_words')] = 'nan'
-        elif str(participant[str('file_'+filetype+'_words')]) is not 'nan':
+        elif str(participant[str('file_'+filetype+'_words')]) != 'nan':
             info_obj[str('path_'+filetype+'_words')] = os.path.join(
                 experiment_folder,
                 participant[str('file_'+filetype+'_words')]

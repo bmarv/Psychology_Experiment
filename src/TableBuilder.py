@@ -3,7 +3,6 @@ import numpy as np
 
 # TODO: build recognition table for participant
 
-# TODO: test for incomplete Data
 def build_encoding_table_for_participant(
     stimulus_object, 
     vp_nr_a = None,
@@ -16,19 +15,19 @@ def build_encoding_table_for_participant(
     encoding_words_b = None
 ):
     participant_encoding_table_obj = {}
-    if encoding_faces_a is not None:
+    if (encoding_faces_a is not None) and (isinstance(encoding_faces_a, pd.DataFrame)):
         vp_nr = vp_nr_a
         encoding_task =  str(vp_nr) + '_encoding_faces_a'
         participant_encoding_table_obj[encoding_task] = build_encoding_faces_table_from_df(vp_nr, stimulus_a, encoding_faces_a, stimulus_object['df_encoding_faces_a'])
-    if encoding_faces_b is not None:
+    if (encoding_faces_b is not None) and (isinstance(encoding_faces_b, pd.DataFrame)):
         vp_nr = vp_nr_b
         encoding_task =  str(vp_nr) + '_encoding_faces_b'
         participant_encoding_table_obj[encoding_task] = build_encoding_faces_table_from_df(vp_nr, stimulus_b, encoding_faces_b, stimulus_object['df_encoding_faces_b'])
-    if encoding_words_a is not None:
+    if (encoding_words_a is not None) and (isinstance(encoding_words_a, pd.DataFrame)):
         vp_nr = vp_nr_a
         encoding_task =  str(vp_nr)  + '_encoding_words_a'
         participant_encoding_table_obj[encoding_task] = build_encoding_words_table_from_df(vp_nr, stimulus_a, encoding_words_a, stimulus_object['df_encoding_words_a'])
-    if encoding_words_b is not None:
+    if (encoding_words_b is not None) and (isinstance(encoding_words_b, pd.DataFrame)):
         vp_nr = vp_nr_b
         encoding_task =  str(vp_nr)  + '_encoding_words_b'
         participant_encoding_table_obj[encoding_task] = build_encoding_words_table_from_df(vp_nr, stimulus_b, encoding_words_b, stimulus_object['df_encoding_words_b'])
