@@ -63,6 +63,70 @@ def build_encoding_words_table_from_df(vp_nr, stimulus, encoding_words_df, df_st
     ]]
     return encoding_words_df
 
+def build_recognition_table_for_participant(
+    stimulus_object, 
+    vp_nr_a = None,
+    stimulus_a = None,
+    vp_nr_b = None,
+    stimulus_b = None,
+    recognition_faces_a = None, 
+    recognition_faces_b = None, 
+    recognition_words_a = None, 
+    recognition_words_b = None
+):
+    participant_recognition_table_obj = {}
+    if (recognition_faces_a is not None) and (isinstance(recognition_faces_a, pd.DataFrame)):
+        vp_nr = vp_nr_a
+        recognition_task =  str(vp_nr) + '_recognition_faces_a'
+        participant_recognition_table_obj[recognition_task] = build_recognition_faces_table_from_df(vp_nr, stimulus_a, recognition_faces_a, stimulus_object['df_recognition_faces_a'])
+    if (recognition_faces_b is not None) and (isinstance(recognition_faces_b, pd.DataFrame)):
+        vp_nr = vp_nr_b
+        recognition_task =  str(vp_nr) + '_recognition_faces_b'
+        participant_recognition_table_obj[recognition_task] = build_recognition_faces_table_from_df(vp_nr, stimulus_b, recognition_faces_b, stimulus_object['df_recognition_faces_b'])
+    if (recognition_words_a is not None) and (isinstance(recognition_words_a, pd.DataFrame)):
+        vp_nr = vp_nr_a
+        recognition_task =  str(vp_nr)  + '_recognition_words_a'
+        participant_recognition_table_obj[recognition_task] = build_recognition_words_table_from_df(vp_nr, stimulus_a, recognition_words_a, stimulus_object['df_recognition_words_a'])
+    if (recognition_words_b is not None) and (isinstance(recognition_words_b, pd.DataFrame)):
+        vp_nr = vp_nr_b
+        recognition_task =  str(vp_nr)  + '_recognition_words_b'
+        participant_recognition_table_obj[recognition_task] = build_recognition_words_table_from_df(vp_nr, stimulus_b, recognition_words_b, stimulus_object['df_recognition_words_b'])
+    return participant_recognition_table_obj
+
+def build_recognition_faces_table_from_df(vp_nr, stimulus, recognition_faces_df, df_stimulus_recognition_faces):
+    recognition_faces_df['VP'] = int(vp_nr)
+    recognition_faces_df['Stimulation'] = int(stimulus)
+    recognition_faces_df = recognition_faces_df.rename(columns={
+        'task': 'Aufgabe',
+        'orderrec': 'Antwort_Order',
+        'yes_or_no': 'Antwort',
+        'confidence': 'Sicherheit'
+    })
+    recognition_faces_df['A_B'] = recognition_faces_df.apply(lambda row: 'A' if (row.order == 0) else 'B', axis = 1)
+    recognition_faces_df['Stimulus'] = recognition_faces_df.apply(lambda row: df_stimulus_recognition_faces.iloc[row.tablerow - 1]['name'], axis = 1)
+    recognition_faces_df = recognition_faces_df[[
+        'VP', 'Stimulation', 'Aufgabe', 'A_B', 'Stimulus', 'Antwort_Order', 'Antwort', 'RT', 'Sicherheit'
+    ]]
+    return recognition_faces_df
+
+def build_recognition_words_table_from_df(vp_nr, stimulus, recognition_words_df, df_stimulus_recognition_words):
+    recognition_words_df['VP'] = int(vp_nr)
+    recognition_words_df['Stimulation'] = int(stimulus)
+    recognition_words_df = recognition_words_df.rename(columns={
+        'task': 'Aufgabe',
+        'orderrec': 'Antwort_Order',
+        'yes_or_no': 'Antwort',
+        'confidence': 'Sicherheit'
+    })
+    recognition_words_df['A_B'] = recognition_words_df.apply(lambda row: 'A' if (row.order == 0) else 'B', axis = 1)
+    recognition_words_df['Stimulus'] = recognition_words_df.apply(lambda row: df_stimulus_recognition_words.iloc[row.tablerow - 1]['name'], axis = 1)
+    recognition_words_df = recognition_words_df[[
+        'VP', 'Stimulation', 'Aufgabe', 'A_B', 'Stimulus', 'Antwort_Order', 'Antwort', 'RT', 'Sicherheit'
+    ]]
+    return recognition_words_df
+
 def concat_df_tables_from_df_list(df_list):
+    if len(df_list) == 0:
+        return pd.DataFrame()
     concat_df_table = pd.concat(df_list, axis=0)
     return concat_df_table
