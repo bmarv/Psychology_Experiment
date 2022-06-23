@@ -21,6 +21,7 @@ def filter_participants_for_complete_data(
 
 def get_participant_information_list(df, filetype = 'encoding'):
     participant_information_list = []
+    validation_participant_dict = {} # prevent overwriting of the same vp_nr, if the later occurrence has less entries for faces and words
     for index, row in df.iterrows():
         info_obj = {
                 'identifier': row['participant'],
@@ -32,6 +33,19 @@ def get_participant_information_list(df, filetype = 'encoding'):
             info_obj['stimulation'] = row['Stimulation:1']
         else:
             info_obj['stimulation'] = 0
+
+        data_size = 0
+        data_size += len(str(info_obj[str('file_'+filetype+'_faces')])) # one valid entry correlates to est. 80 characters, one nan entry to 3 characters
+        data_size += len(str(info_obj[str('file_'+filetype+'_words')]))
+        vp_nr = info_obj['vp_nr']
+
+        # find doublette
+        if vp_nr in list(validation_participant_dict.keys()):
+            if validation_participant_dict[vp_nr] > data_size: # don't overwrite the older, more valid, entry with a later, less valid, entry
+                continue
+
+        validation_participant_dict[vp_nr] = data_size
+
         participant_information_list.append(info_obj)
     return participant_information_list
 
