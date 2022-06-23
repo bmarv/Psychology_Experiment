@@ -2,6 +2,24 @@ from src import InputHandler
 from src import TableBuilder
 from src import FileExporter
 
+def run_build_encoding_table(output_format = 'csv'):
+    stimulus_object = InputHandler.stimulus_lists_workflow()
+    df_table = run_build_encoding_table_dfs(stimulus_object)
+    if output_format == 'excel':
+        FileExporter.write_dataframe_to_excel(df_table, 'encoding', 'encoding_data.xlsx')
+    else:
+        FileExporter.write_dataframe_to_csv(df_table, 'encoding', 'encoding_data.csv')
+    return df_table
+
+def run_build_recognition_table(output_format = 'csv'):
+    stimulus_object = InputHandler.stimulus_lists_workflow()
+    df_table = run_build_recognition_table_dfs(stimulus_object)
+    if output_format == 'excel':
+        FileExporter.write_dataframe_to_excel(df_table, 'recognition', 'recognition_data.xlsx')
+    else:
+        FileExporter.write_dataframe_to_csv(df_table, 'recognition', 'recognition_data.csv')
+    return df_table
+
 def run_build_encoding_table_dfs(stimulus_object):
     
     encoding_data_a_list = InputHandler.encoding_workflow()
@@ -251,22 +269,3 @@ def run_build_recognition_table_dfs(stimulus_object):
     # build one encoding table for all participants
     recognition_df = TableBuilder.concat_df_tables_from_df_list(participants_df_list)
     return recognition_df
-    
-
-def run_build_encoding_table(output_format = 'csv'):
-    stimulus_object = InputHandler.stimulus_lists_workflow()
-    df_table = run_build_encoding_table_dfs(stimulus_object)
-    if output_format == 'excel':
-        FileExporter.write_dataframe_to_excel(df_table, 'encoding', 'encoding_data.xlsx')
-    else:
-        FileExporter.write_dataframe_to_csv(df_table, 'encoding', 'encoding_data.csv')
-    return df_table
-
-def run_build_recognition_table(output_format = 'csv'):
-    stimulus_object = InputHandler.stimulus_lists_workflow()
-    df_table = run_build_recognition_table_dfs(stimulus_object)
-    if output_format == 'excel':
-        FileExporter.write_dataframe_to_excel(df_table, 'recognition', 'recognition_data.xlsx')
-    else:
-        FileExporter.write_dataframe_to_csv(df_table, 'recognition', 'recognition_data.csv')
-    return df_table
