@@ -25,11 +25,10 @@ def get_participants_experiment_path_list(basepath, filetype = 'encoding'):
         'data.xlsx'
     )
     info_df = FileInput.read_excel_file_content_into_pd_dataframe(experiment_info_file)
-    # TODO: use also null-data from non-existent tests
     info_df = FileInput.filter_participants_for_complete_data(
         df = info_df, 
-        faces_available = True, 
-        words_available = True
+        faces_neccessary = False, 
+        words_neccessary = False
     )
     encoding_file_names_list = FileInput.get_participant_information_list(
         df = info_df,
@@ -38,18 +37,24 @@ def get_participants_experiment_path_list(basepath, filetype = 'encoding'):
     path_list = []
     for participant in encoding_file_names_list:
         info_obj = {
-            'identifier': participant['identifier'],
-            'vp_nr': participant['vp_nr'],
-            'stimulation': participant['stimulation'],
-            str('path_'+filetype+'_faces'): os.path.join(
+        'identifier': participant['identifier'],
+        'vp_nr': participant['vp_nr'],
+        'stimulation': participant['stimulation']
+        }
+        if str(participant[str('file_'+filetype+'_faces')]) == 'nan':
+            info_obj[str('path_'+filetype+'_faces')] = 'nan'
+        elif str(participant[str('file_'+filetype+'_faces')]) is not 'nan':
+            info_obj[str('path_'+filetype+'_faces')] = os.path.join(
                 experiment_folder,
                 participant[str('file_'+filetype+'_faces')]
-            ),
-            str('path_'+filetype+'_words'): os.path.join(
+            )
+        if str(participant[str('file_'+filetype+'_words')]) == 'nan':
+            info_obj[str('path_'+filetype+'_words')] = 'nan'
+        elif str(participant[str('file_'+filetype+'_words')]) is not 'nan':
+            info_obj[str('path_'+filetype+'_words')] = os.path.join(
                 experiment_folder,
                 participant[str('file_'+filetype+'_words')]
             )
-        }
         path_list.append(info_obj)
     return path_list
 

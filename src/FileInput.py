@@ -7,16 +7,15 @@ def read_excel_file_content_into_pd_dataframe(path):
     )
     return file_content_df
 
-# TODO: create data without filtering
 def filter_participants_for_complete_data(
     df,
-    faces_available = True,
-    words_available = True
+    faces_neccessary = False,
+    words_neccessary = False
 ):
     df = df[~df['VP_NR:1'].isnull()]
-    if faces_available:
+    if faces_neccessary:
         df = df[~df['start_exp1:1'].isnull()]
-    if words_available:
+    if words_neccessary:
         df = df[~df['start_exp2:1'].isnull()]
     return df
 
@@ -37,6 +36,8 @@ def get_participant_information_list(df, filetype = 'encoding'):
     return participant_information_list
 
 def read_encoding_data_txt_into_df(path):
+    if path == 'nan':
+        return 'nan'
     df = pd.read_csv(
         filepath_or_buffer = path, 
         sep = ' ', 
@@ -46,6 +47,8 @@ def read_encoding_data_txt_into_df(path):
     return df
 
 def read_memory_data_txt_into_df(path):
+    if path == 'nan':
+        return 'nan'
     df = pd.read_csv(
         filepath_or_buffer = path, 
         sep = ' ', 

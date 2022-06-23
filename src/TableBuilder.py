@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 
 # TODO: build recognition table for participant
-# TODO: build whole table in right order
 
 # TODO: test for incomplete Data
 def build_encoding_table_for_participant(
