@@ -21,7 +21,6 @@ def run_build_recognition_table(output_format = 'csv'):
     return df_table
 
 def run_build_encoding_table_dfs(stimulus_object):
-    
     encoding_data_a_list = InputHandler.encoding_workflow()
     encoding_data_b_list = InputHandler.encoding_workflow()
     encoding_stimulus_a_obj = {}
@@ -145,7 +144,6 @@ def run_build_encoding_table_dfs(stimulus_object):
     encoding_df = TableBuilder.concat_df_tables_from_df_list(participants_df_list)
     return encoding_df
 
-# TODO: build recognition table
 def run_build_recognition_table_dfs(stimulus_object):
     recognition_data_a_list = InputHandler.memory_workflow()
     recognition_data_b_list = InputHandler.memory_workflow()
