@@ -1,3 +1,25 @@
+# Psychology_Experiment
+
+## Installation
+* Python-Version: 3.9 
+
+Die Installation von python-tk ist auf dem Zielsystem mit Unix vonnöten. 
+Andere Abhängigkeiten müssen mit pip installiert werden.
+```bash
+pip install -r requirements.txt
+```
+
+## Benutzung
+Für einen Durchlauf mit Encoding-Daten bitte nach der Installation folgenden Befehl verwenden:
+```bash
+python -c 'import Main; Main.run_build_encoding_table()'
+```
+Für Recognition-Daten erfolgt der analoge Befehl:
+```bash
+python -c 'import Main; Main.run_build_recognition_table()'
+```
+
+___
 In dieser Readme wird erst kurz der Experimentablauf beschrieben, die Benutzerführung, sowie die allgemeine und die technische Struktur des Programms.
 
 ## Ablauf des Experiment:
