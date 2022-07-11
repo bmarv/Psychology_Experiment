@@ -20,6 +20,20 @@ def run_build_recognition_table(output_format = 'csv'):
         FileExporter.write_dataframe_to_csv(df_table, 'recognition', 'recognition_data.csv')
     return df_table
 
+def run_build_unified_table(output_format = 'csv'):
+    # expect 1 prompt for choosing the stimulus directory
+    stimulus_object = InputHandler.stimulus_lists_workflow()
+    # expect 2 prompts for choosing both encoding directories
+    df_encoding_table = run_build_encoding_table_dfs(stimulus_object)
+    # expect 2 prompts for choosing both recognition directories
+    df_recognition_table = run_build_recognition_table_dfs(stimulus_object)
+    df_unified_table = TableBuilder.concat_df_tables_from_df_list([df_encoding_table, df_recognition_table])
+    if output_format == 'excel':
+        FileExporter.write_dataframe_to_excel(df_unified_table, 'unified', 'unified_data.xlsx')
+    else:
+        FileExporter.write_dataframe_to_csv(df_unified_table, 'unified', 'unified_data.csv')
+    return df_unified_table
+
 def run_build_encoding_table_dfs(stimulus_object):
     encoding_data_a_list = InputHandler.encoding_workflow()
     encoding_data_b_list = InputHandler.encoding_workflow()
