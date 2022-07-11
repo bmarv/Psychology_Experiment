@@ -18,7 +18,11 @@ Für Recognition-Daten erfolgt der analoge Befehl:
 ```bash
 python -c 'import Main; Main.run_build_recognition_table()'
 ```
-
+Sollen sowohl die Encoding- als auch die Recognition-Daten in eine einheitliche Tabelle gebündelt werden, so gilt der folgende Befehl:
+```bash
+python -c 'import Main; Main.run_build_unified_table()'
+```
+_Hinweis: Bei der gebündelten Tabelle gibt es nachfolgend eine Abfrage für den Stimuluslisten-Pfad, 2 Abfragen für die Encoding- und 2 Abfragen für die Recognition-Pfade. Sollen nicht .csv sondern .xlsx -Dateien ausgegeben werden, so sind für die vorigen Befehle noch das Argument "excel" einzufügen._
 ___
 In dieser Readme wird erst kurz der Experimentablauf beschrieben, die Benutzerführung, sowie die allgemeine und die technische Struktur des Programms.
 
