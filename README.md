@@ -1,4 +1,5 @@
 # Psychology_Experiment
+_This Codebase deals with a Vagus-Nerve Stimulation Experiment, conducted by [Manon Giraudier](https://www.uni-potsdam.de/de/emobio/team/manon-giraudier) at the Institute of Biological Psychology and Affective Science of the University of Potsdam in 2022. The further documentation of the Codebase is given below in German._
 
 ## Installation
 * Python-Version: 3.9 
